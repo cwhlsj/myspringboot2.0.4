@@ -44,7 +44,7 @@ public class AliyunOssUtil {
      * 获取ossClient
      * @return
      */
-    public  OSSClient ossClientInitialization(){
+    private   OSSClient ossClientInitialization(){
         return new OSSClient(ossConfig.getEndPoint(), ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret());
     }
 
@@ -64,21 +64,22 @@ public class AliyunOssUtil {
     public  String fileUpload(MultipartFile file) throws IOException{
         OSSClient ossClient = ossClientInitialization();
         creatBucket(ossClient);
-//        String fileName = getFileName(file.getOriginalFilename());
-        String fileName= UUID.randomUUID().toString();
+
+        //原文件名
+        String originalFilename = file.getOriginalFilename();
+
+        String fileName = getFileName(originalFilename);
         // 上传文件流
         InputStream inputStream = file.getInputStream();
         String path=ossConfig.getFolder()+"/"+fileName;
         ossClient.putObject(ossConfig.getBucketName(), path, inputStream);
-//        String url = getUrl(ossClient,path);
-        String url="https://"+ossConfig.getBucketName()+"/"+ossConfig.getEndPoint()+"/"+path;
+        String url = getUrl(ossClient,fileName);
         ossClient.shutdown();
-
         return url;
     }
 
     /**
-     * 获取附件上传保存到服务器的名称
+     * 获取附件上传保存到服务器的名称，返回当前时间的时间戳为文件名
      * @param fileName    文件原始名称
      * @return
      */
@@ -86,7 +87,6 @@ public class AliyunOssUtil {
         if(StringUtils.isBlank(fileName)){
             return null;
         }
-        fileName=ossConfig.getFolder()+"/"+fileName;
         if(fileName.lastIndexOf(".")>-1){
             fileName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
         }else{
@@ -94,7 +94,6 @@ public class AliyunOssUtil {
         }
         Date date = new Date();
         long t = date.getTime();
-        date = null;
         return String.valueOf(t)+fileName;
     }
 
