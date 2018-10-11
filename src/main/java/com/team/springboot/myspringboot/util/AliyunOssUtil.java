@@ -31,7 +31,7 @@ public class AliyunOssUtil {
     }
 
     /**
-     * 创建bucket实例
+     * 不存在则创建bucket实例
      */
     private  void creatBucket(OSSClient ossClient){
         if(!hasBucket(ossClient))
@@ -39,12 +39,11 @@ public class AliyunOssUtil {
     }
 
 
-
     /**
      * 获取ossClient
      * @return
      */
-    private   OSSClient ossClientInitialization(){
+    public  OSSClient ossClientInitialization(){
         return new OSSClient(ossConfig.getEndPoint(), ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret());
     }
 
@@ -64,7 +63,6 @@ public class AliyunOssUtil {
     public  String fileUpload(MultipartFile file) throws IOException{
         OSSClient ossClient = ossClientInitialization();
         creatBucket(ossClient);
-
         //原文件名
         String originalFilename = file.getOriginalFilename();
 

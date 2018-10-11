@@ -30,7 +30,7 @@ public class UserController {
     AlipayConfig alipayConfig;
 
     @RequestMapping("/hello")
-    public AliyunOssConfig insertUser(){
+    public String insertUser(){
 
 //        User user=new User();
 //        user.setUsername("1");
@@ -41,7 +41,7 @@ public class UserController {
 //        user.setUImage("11");
 //        int k=userMapper.saveUser(user);
 //        log.info(user.toString());
-        return aliyunOssConfig;
+        return null;
     }
 
 

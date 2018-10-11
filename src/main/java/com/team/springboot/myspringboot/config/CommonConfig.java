@@ -1,5 +1,6 @@
 package com.team.springboot.myspringboot.config;
 
+
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,8 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.MultipartConfigElement;
 
 @Configuration
-public class UploadSizeLimit {
+public class CommonConfig {
 
+
+    /**
+     * 配置文件上传大小限制为10M
+     * @return
+     */
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
@@ -18,4 +24,7 @@ public class UploadSizeLimit {
         factory.setMaxRequestSize("102400KB");
         return factory.createMultipartConfig();
     }
+
+
+
 }
