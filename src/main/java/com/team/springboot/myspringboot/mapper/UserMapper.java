@@ -1,5 +1,6 @@
 package com.team.springboot.myspringboot.mapper;
 
+import com.team.springboot.myspringboot.entity.TCity;
 import com.team.springboot.myspringboot.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -16,4 +17,9 @@ public interface UserMapper {
 
     @Select("select * from tb_user")
     List<User> selectAll();
+
+
+    @Insert("insert into t_city(city_name) values (#{cityName})")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    int testInsert(TCity tCity);
 }
