@@ -20,7 +20,25 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public TAdmin getAdminByUserNameAndPassword(String name, String password) {
-        return adminMapper.getAdminByUserNameAndPassword(name,password);
+    public TAdmin getAdminByAccountAndPassword(String account, String password) {
+        return adminMapper.getAdminByAccountAndPassword(account,password);
+    }
+
+    @Override
+    public int addAdmin(TAdmin admin) {
+
+
+        return adminMapper.addAdmin(admin);
+    }
+
+    @Override
+    public int updateAdmin(TAdmin admin) {
+        return adminMapper.updateAdmin(admin);
+    }
+
+    @Override
+    public int checkAdminNameCount(String account) {
+
+        return adminMapper.checkAdminNameCount(account);
     }
 }

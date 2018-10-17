@@ -6,5 +6,11 @@ public interface AdminService {
 
     int getAdminCount();
 
-    TAdmin getAdminByUserNameAndPassword(String name, String password);
+    TAdmin getAdminByAccountAndPassword(String account, String password);
+
+    int addAdmin(TAdmin admin);
+
+    int updateAdmin(TAdmin admin);
+
+    int checkAdminNameCount(String account);
 }
