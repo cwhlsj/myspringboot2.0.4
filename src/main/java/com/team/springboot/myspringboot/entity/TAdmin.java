@@ -15,8 +15,8 @@ public class TAdmin {
   private String email;
   private  String describe;
   private String authority;
-  private Date ctime;
-  private Date mtime;
+  private String ctime;
+  private String mtime;
   private Integer status;
 
 

@@ -9,9 +9,6 @@ import java.util.List;
 
 public interface AdminMapper {
 
-
-
-
     @Select("select count(*) from t_admin")
     int getAdminCount();
 
@@ -31,4 +28,63 @@ public interface AdminMapper {
 
     @Select("select count(*) from t_admin where account =#{account}")
     int checkAdminNameCount(String account);
+
+    @Select("<script>" +
+            "select * from t_admin" +
+            "<where>" +
+                "<if test='account!=null '>" +
+                    "and account LIKE (CONCAT('%', #{account}, '%'))" +
+                "</if>" +
+                "<if test='name!=null '>" +
+                    "and name LIKE (CONCAT('%', #{name}, '%'))" +
+                "</if>" +
+                "<if test='phone!=null '>" +
+                    "and phone LIKE (CONCAT('%', #{phone}, '%'))" +
+                "</if>" +
+                "<if test='startDate!=null and endDate!=null '>" +
+                    "and ctime between #{startDate} and #{endDate}" +
+                "</if>" +
+                "<if test='email!=null '>" +
+                    "and email LIKE (CONCAT('%', #{email}, '%'))" +
+                "</if>" +
+                "<if test='authority!=null '>" +
+                    "and authority =#{authority}" +
+                "</if>" +
+            "</where>" +
+            "</script>")
+    List<TAdmin> getQueryAdmins(@Param("account") String account, @Param("name") String name, @Param("phone") String phone, @Param("startDate") String startDate,
+                              @Param("endDate") String endDate,@Param("email") String email,@Param("authority") String authority);
+
+    @Select("select * from t_admin")
+    List<TAdmin> getAllAdmins();
+
+    @Select("select * from t_admin limit #{startIndex},#{pageSize}")
+    List<TAdmin> findAdminByPage(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
+
+
+    @Select("<script>" +
+            "select count(*) from t_admin" +
+            "<where>" +
+            "<if test='account!=null '>" +
+            "and account LIKE (CONCAT('%', #{account}, '%'))" +
+            "</if>" +
+            "<if test='name!=null '>" +
+            "and name LIKE (CONCAT('%', #{name}, '%'))" +
+            "</if>" +
+            "<if test='phone!=null '>" +
+            "and phone LIKE (CONCAT('%', #{phone}, '%'))" +
+            "</if>" +
+            "<if test='startDate!=null and endDate!=null '>" +
+            "and ctime between #{startDate} and #{endDate}" +
+            "</if>" +
+            "<if test='email!=null '>" +
+            "and email LIKE (CONCAT('%', #{email}, '%'))" +
+            "</if>" +
+            "<if test='authority!=null '>" +
+            "and authority =#{authority}" +
+            "</if>" +
+            "</where>" +
+            "</script>")
+    int getQueryAdminCount(@Param("account") String account, @Param("name") String name, @Param("phone") String phone, @Param("startDate") String startDate,
+                           @Param("endDate") String endDate,@Param("email") String email,@Param("authority") String authority);
 }
