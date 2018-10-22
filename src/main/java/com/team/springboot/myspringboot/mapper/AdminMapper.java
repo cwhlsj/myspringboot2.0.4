@@ -1,8 +1,6 @@
 package com.team.springboot.myspringboot.mapper;
 
 import com.team.springboot.myspringboot.entity.TAdmin;
-import com.team.springboot.myspringboot.entity.TCity;
-import com.team.springboot.myspringboot.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -11,19 +9,16 @@ public interface AdminMapper {
 
     @Select("select count(*) from t_admin")
     int getAdminCount();
-
-
-
-    @Select("select * from t_admin where account=#{account} and password=#{password}")
+    @Select("select * from t_admin where account=#{account} and password=#{password} and status=1 ")
     TAdmin getAdminByAccountAndPassword(@Param("account") String account, @Param("password") String password);
 
-    @Insert("INSERT  INTO `t_admin`(`account`,`name`,`password`,`phone`,`email`,`authority`,`describe`) " +
-            "VALUES (#{account},#{name},#{password},#{phone},#{email},#{authority},#{describe})")
+    @Insert("INSERT  INTO `t_admin`(`account`,`name`,`password`,`phone`,`email`,`authority`,`description`) " +
+            "VALUES (#{account},#{name},#{password},#{phone},#{email},#{authority},#{description})")
     int addAdmin(TAdmin admin);
 
     @Update("UPDATE t_admin SET " +
-            "account=#{account}, name = #{name}, password=#{password}, phone=#{phone} , email=#{email}, authority=#{authority}, describe=#{describe}" +
-            "WHERE id=#{id}")
+            "account=#{account}, name = #{name}, password=#{password}, phone=#{phone} , email=#{email}, authority=#{authority}, description=#{description}, " +
+            "status=#{status}  WHERE id=#{id}")
     int updateAdmin(TAdmin admin);
 
     @Select("select count(*) from t_admin where account =#{account}")
@@ -50,15 +45,17 @@ public interface AdminMapper {
                 "<if test='authority!=null '>" +
                     "and authority =#{authority}" +
                 "</if>" +
+                 "and status=1" +
             "</where>" +
+            "order by ctime desc" +
             "</script>")
     List<TAdmin> getQueryAdmins(@Param("account") String account, @Param("name") String name, @Param("phone") String phone, @Param("startDate") String startDate,
                               @Param("endDate") String endDate,@Param("email") String email,@Param("authority") String authority);
 
-    @Select("select * from t_admin")
+    @Select("select * from t_admin where status=1 order by ctime desc")
     List<TAdmin> getAllAdmins();
 
-    @Select("select * from t_admin limit #{startIndex},#{pageSize}")
+    @Select("select * from t_admin where  status=1  limit #{startIndex},#{pageSize} order by ctime desc")
     List<TAdmin> findAdminByPage(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
 
 
@@ -83,8 +80,12 @@ public interface AdminMapper {
             "<if test='authority!=null '>" +
             "and authority =#{authority}" +
             "</if>" +
+            "and status=1" +
             "</where>" +
             "</script>")
     int getQueryAdminCount(@Param("account") String account, @Param("name") String name, @Param("phone") String phone, @Param("startDate") String startDate,
                            @Param("endDate") String endDate,@Param("email") String email,@Param("authority") String authority);
+
+    @Select("select * from t_admin where id=#{id}")
+    TAdmin getAdminById(Integer id);
 }

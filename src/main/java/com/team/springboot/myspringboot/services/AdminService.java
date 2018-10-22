@@ -23,4 +23,6 @@ public interface AdminService {
     List<TAdmin> getAllAdmins();
 
     PageBean getAdminsByPage(int pageSize, int current);
+
+    TAdmin getAdminById(Integer id);
 }

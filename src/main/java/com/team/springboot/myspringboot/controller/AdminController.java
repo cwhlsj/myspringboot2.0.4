@@ -42,6 +42,13 @@ public class AdminController {
     }
 
 
+    @GetMapping("getAdminById")
+    public ResultBody getAdminById(Integer id){
+        TAdmin admin=adminService.getAdminById(id);
+
+        return ResultBody.success(admin);
+    }
+
     @PostMapping("/addOrUpdateAdmin")
     public ResultBody addAdmin(@RequestBody TAdmin admin){
 
@@ -67,13 +74,15 @@ public class AdminController {
         return ResultBody.success(flag);
     }
 
-    @GetMapping("getAdminsByPage")
-    public ResultBody getAdminsByPage (int pageSize,int currentPage){
+//    @GetMapping("getAdminsByPage")
+//    public ResultBody getAdminsByPage (int pageSize,int currentPage){
+//
+//        PageBean pageBean=adminService.getAdminsByPage(pageSize,currentPage);
+//
+//        return ResultBody.page(pageBean.getTotal(),pageBean.getCurrent(),pageBean.getPageSize(),pageBean.getData());
+//    }
 
-        PageBean pageBean=adminService.getAdminsByPage(pageSize,currentPage);
 
-        return ResultBody.page(pageBean.getTotal(),pageBean.getCurrent(),pageBean.getPageSize(),pageBean.getData());
-    }
 
     @GetMapping("/getAllAdminData")
     public ResultBody getQueryAdmins(Integer pageSize,Integer currentPage,String account,String name,String phone,String startDate,String endDate,String email,String authority){

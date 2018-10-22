@@ -71,5 +71,11 @@ public class AdminServiceImpl implements AdminService {
         return pageBean;
     }
 
+    @Override
+    public TAdmin getAdminById(Integer id) {
+
+        return adminMapper.getAdminById(id);
+    }
+
 
 }

@@ -13,13 +13,10 @@ public class TAdmin {
   private String account;
   private String phone;
   private String email;
-  private  String describe;
+  private  String description;
   private String authority;
   private String ctime;
   private String mtime;
   private Integer status;
-
-
-
 
 }
