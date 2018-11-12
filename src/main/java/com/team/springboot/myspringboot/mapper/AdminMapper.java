@@ -2,10 +2,11 @@ package com.team.springboot.myspringboot.mapper;
 
 import com.team.springboot.myspringboot.entity.TAdmin;
 import org.apache.ibatis.annotations.*;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface AdminMapper {
+public interface AdminMapper extends Mapper<TAdmin> {
 
     @Select("select count(*) from t_admin")
     int getAdminCount();
