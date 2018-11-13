@@ -2,6 +2,8 @@ package com.team.springboot.myspringboot.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class TDesigner {
 
@@ -9,8 +11,8 @@ public class TDesigner {
   private String name;
   private Integer position;
   private String introduction;
-  private java.sql.Timestamp ctime;
-  private java.sql.Timestamp mtime;
+  private Date ctime;
+  private Date mtime;
   private Integer status;
 
 

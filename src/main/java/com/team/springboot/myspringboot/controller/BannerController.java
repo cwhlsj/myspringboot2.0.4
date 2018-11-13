@@ -31,9 +31,8 @@ public class BannerController {
     }
     @PostMapping("/edit")
     public ResultBody editBannerById(@RequestBody TBanner banner){
-        log.info(banner.toString());
-        bannerMapper.updateByPrimaryKeySelective(banner);
-        return ResultBody.success();
+
+        return ResultBody.success(bannerMapper.updateByPrimaryKeySelective(banner));
     }
 
 }
